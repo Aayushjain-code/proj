@@ -1,11 +1,12 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
+import ListScreen from './src/screens/ListScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 
 const App = () => {
@@ -13,14 +14,29 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Welcome' }}
-          />
-        
-      </Stack.Navigator>
+             <Tab.Navigator>
+                <Tab.Screen name="Home" component={HomeScreen}
+                
+                  options={
+                    
+                    {headerShown: false,
+                      tabBarIcon: ({ focused, color, size }) => {
+                        return <Text style={{ fontSize: size, color: color }}>🏠</Text>
+                      }
+                    }
+                  }
+                />
+                <Tab.Screen name="list" component={ListScreen}
+                  options={
+                    {headerShown: false,
+                      tabBarIcon: ({ focused, color, size }) => {
+                        return <Text style={{ fontSize: size, color: "purple" }}>⚙️</Text>
+                      }
+                    }
+                  }
+                />
+
+        </Tab.Navigator>
   </NavigationContainer>
   )
 };
